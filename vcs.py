@@ -4,7 +4,7 @@ import shutil
 import os
 import sys
 import errno
-import distutils
+from distutils import dir_util
 
 def ignore_patterns(root):
     try:
@@ -34,7 +34,7 @@ def checkout(root, ref):
         refdir = os.path.join(root, '.vcs', 'refs', str(ref))
         print refdir
         os.listdir(refdir)
-        distutils.dir_util.copy_tree(refdir, root)
+        dir_util.copy_tree(refdir, root)
     except Exception, e:
         raise Exception('Cannot checkout ref', ref, e)
 
