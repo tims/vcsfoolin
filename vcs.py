@@ -4,6 +4,8 @@ import shutil
 import os
 import sys
 import errno
+import distutils
+
 def ignore_patterns(root):
     try:
         f = open(root + '/.vcsignore')
@@ -29,7 +31,10 @@ def mkdir_p(path):
 
 def checkout(root, ref):
     try:
-        os.listdir(os.path.join(root, '.vcs', 'refs', str(ref)))
+        refdir = os.path.join(root, '.vcs', 'refs', str(ref))
+        print refdir
+        os.listdir(refdir)
+        distutils.dir_util.copy_tree(refdir, root)
     except Exception, e:
         raise Exception('Cannot checkout ref', ref, e)
 
